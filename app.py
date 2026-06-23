@@ -12,3 +12,4 @@ st.write("Suba una imagen para clasificar con el modelo MobileNEtV2 pre_entrenad
 IMG_SIZE=(224,224)
 MODEL_DIR= Path("modelo_reciclaje_mobilenet")
 CLASS_PATH= MODEL_DIR/"class_names.json"
+MODEL_PATH = [MODEL_DIR/"wate_mobilenet.keras", MODEL_DIR/"waste_mobilenet.h5"]
