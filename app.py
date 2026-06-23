@@ -23,7 +23,7 @@ LABELS_ES = {
     "trash": "Descarte",
 }
 
-@st.cache_resourse
+@st.cache_resource
 def cargar_modelo():
     for path in MODEL_PATHS:
         if path.exists():
