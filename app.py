@@ -2,17 +2,17 @@ import json
 from pathlib import Path
 import numpy as np
 import streamlit as st
-import tensorflow as tf
+import tensorflow  as tf
 from PIL import Image
 
-st.set_page_config(page_title="Reciclaje IA-ISC", layout= "centered")
-st.title("Modelo Predictivo de Reciclaje Clase de IA-ISC-Campus Comayagua-2026")
-st.write("Suba una imagen para clasificar con el modelo MobileNEtV2 pre_entrenado")
+st.set_page_config(page_title="Reciclaje IA-ISC", layout="centered")
+st.title("Modelo predictivo de reciclaje clase de IA-ISC-campus Comayagua-2026-Anny-Gutierrez")
+st.write("Suba una imagen para clasificar con el modelo MobileNetV2 pre-entrenado")
 
-IMG_SIZE=(224,224)
-MODEL_DIR= Path("modelo_reciclaje_mobilenet")
-CLASS_PATH= MODEL_DIR/"class_names.json"
-MODEL_PATH = [MODEL_DIR/"waste_mobilenet.keras", MODEL_DIR/"waste_mobilenet.h5"]
+IMG_SIZE= (224,224)
+MODEL_DIR=Path("modelo_reciclaje_mobilenet")
+CLASS_PATH=MODEL_DIR/"class_names.json"
+MODEL_PATHS=[MODEL_DIR/"waste_mobilenet.h5", MODEL_DIR/"waste_mobilenet.keras"]
 
 LABELS_ES = {
     "cardboard": "Cartón",
@@ -20,19 +20,18 @@ LABELS_ES = {
     "metal": "Metal",
     "paper": "Papel",
     "plastic": "Plástico",
-    "trash": "Descarte",
+    "trash": "Basura",
 }
-
 @st.cache_resource
 def cargar_modelo():
     for path in MODEL_PATHS:
         if path.exists():
             return tf.keras.models.load_model(path, compile=False)
-    st.error("No se encontro el modelo. Coloque la carpeta modelo_reciclaje_mobilenet junto a app.py")
+    st.error("No se encontró el modelo. Coloque la carpeta modelo_reciclaje_mobilenet junto a app.py.")
     st.stop()
 
 @st.cache_data
-def cargar_clase():
+def cargar_clases():
     if CLASS_PATH.exists():
         with open(CLASS_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
